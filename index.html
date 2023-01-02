@@ -16,7 +16,10 @@
         參考文章 
         <a href="https://ithelp.ithome.com.tw/articles/10244690">https://ithelp.ithome.com.tw/articles/10244690</a>
         <a href="https://ithelp.ithome.com.tw/articles/10229829">https://ithelp.ithome.com.tw/articles/10229829</a>
-        
+        1. 打 GET api 做跳轉 https://access.line.me/oauth2/v2.1/authorize
+        2. 去 line developer 設定 Callback URL
+        <img src="./line-login.PNG" alt="line">
+        3. 
     </pre>
 
     <script>
@@ -24,9 +27,8 @@
         const client_id = "1657784682"
         const redirect_uri = "https://dpes8693.github.io/line-login-example/"
         $('#lineLoginBtn').on('click', function (e) {
-            const client_id = '1653311283';
-            const redirect_uri = 'https://piedasing.github.io/line-service-demo/';
             // 故意分開寫
+            /* GET https://access.line.me/oauth2/v2.1/authorize */
             const link = 'https://access.line.me/oauth2/v2.1/authorize?';
             link += 'response_type=code';
             link += '&client_id=' + client_id;
@@ -35,6 +37,9 @@
             link += '&scope=openid%20profile';
             window.location.href = link;
         });
+
+        // POST https://api.line.me/oauth2/v2.1/token
+        // GET https://api.line.me/v2/profile
     </script>
 </body>
 
