@@ -35,18 +35,19 @@ function init() {
 
 // POST https://api.line.me/oauth2/v2.1/token
 async function getLineToken() {
+    // 留意一下官網告知的傳送格式，是使用 application/x-www-form-urlencoded
     const url = "https://api.line.me/oauth2/v2.1/token"
     const headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
+        'Content-Type': 'application/x-www-form-urlencoded'
     }
-    const body = {
+    //若為json才要 JSON.stringify(body)
+    const body = new URLSearchParams({
         grant_type: "authorization_code",
         code: queryObject.code, //第一次拿的code
         redirect_uri,
         client_id, //Channel ID
         client_secret //Channel secret
-    }
+    })
     const response = await postApi(url, headers, body)
     console.log(response)
 
@@ -55,7 +56,7 @@ async function getLineToken() {
             method: "POST",
             headers: headers,
             //別忘了把主體参數轉成字串，否則資料會變成[object Object]，它無法被成功儲存在後台
-            body: JSON.stringify(body)
+            body
         })
             .then(response => response.json())
         /**

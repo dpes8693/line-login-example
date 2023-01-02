@@ -31,7 +31,7 @@
         2. 去 line developer 設定 Callback URL
         <img src="./line-login.PNG" alt="line">
         3. 登入後會跳轉回來拿到code和state 例如 http://127.0.0.1:5500/index.html?code=hVL4p85qcU0bbvNpP8Sz&state=login
-        4. 打 line_POST_api https://api.line.me/oauth2/v2.1/token 取token
+        4. 打 line_POST_api_urlencoded https://api.line.me/oauth2/v2.1/token 取token
         5. 丟給後端
         6. 後端可以用token去拿用戶資料 // GET https://api.line.me/v2/profile
     </pre>
