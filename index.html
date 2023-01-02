@@ -1,44 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <button onclick="login()">login</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LINE Login Demo</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
+</head>
+
+<body>
+
+    <button id="lineLoginBtn">LINE 登入</button>
+    <pre>
+        參考文章 
+        <a href="https://ithelp.ithome.com.tw/articles/10244690">https://ithelp.ithome.com.tw/articles/10244690</a>
+        <a href="https://ithelp.ithome.com.tw/articles/10229829">https://ithelp.ithome.com.tw/articles/10229829</a>
+        
+    </pre>
+
     <script>
-      async function login() {
-        const url1 =
-          "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1234567890&redirect_uri=https%3A%2F%2Fexample.com%2Fauth%3Fkey%3Dvalue&state=12345abcde&scope=profile%20openid&nonce=09876xyz";
-        let headers1 = {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        };
-        let body1 = {
-          grant_type: "authorization_code",
-          code: "aaa",
-          redirect_uri: "https://dpes8693.github.io/line-login-example/",
-          client_id: "1657784682", //Channel ID
-          client_secret: "155645340d8a3034e8dc47f413b5c54d" //Channel secret
-        };
-
-        const res = await postApi(url1, headers1, body1);
-        console.log(res);
-      }
-
-      function postApi(url, headers, body) {
-        return fetch(url, {
-          method: "POST",
-          headers: headers,
-          //別忘了把主體参數轉成字串，否則資料會變成[object Object]，它無法被成功儲存在後台
-          body: JSON.stringify(body)
-        })
-          .then((response) => response.json())
-          .then((json) => console.log(json));
-      }
+        // https://w3c.hexschool.com/blog/d3accfa7
+        const client_id = "1657784682"
+        const redirect_uri = "https://dpes8693.github.io/line-login-example/"
+        $('#lineLoginBtn').on('click', function (e) {
+            const client_id = '1653311283';
+            const redirect_uri = 'https://piedasing.github.io/line-service-demo/';
+            // 故意分開寫
+            const link = 'https://access.line.me/oauth2/v2.1/authorize?';
+            link += 'response_type=code';
+            link += '&client_id=' + client_id;
+            link += '&redirect_uri=' + redirect_uri;
+            link += '&state=login';
+            link += '&scope=openid%20profile';
+            window.location.href = link;
+        });
     </script>
-  </body>
+</body>
+
 </html>
