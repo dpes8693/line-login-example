@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-    <button onclick="login">login</button>
+  <body>
+    <button onclick="login()">login</button>
     <script>
-        function login() {
-            const url1 = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1234567890&redirect_uri=https%3A%2F%2Fexample.com%2Fauth%3Fkey%3Dvalue&state=12345abcde&scope=profile%20openid&nonce=09876xyz"
-            let headers1 = {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            }
-            let body1 = {
-                grant_type: "authorization_code",
-                code: "",
-                redirect_uri: "http://127.0.0.1:5502/line/login/index.html",
-                client_id: "1657784682", //Channel ID
-                client_secret: "155645340d8a3034e8dc47f413b5c54d" //Channel secret
-            }
+      async function login() {
+        const url1 =
+          "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1234567890&redirect_uri=https%3A%2F%2Fexample.com%2Fauth%3Fkey%3Dvalue&state=12345abcde&scope=profile%20openid&nonce=09876xyz";
+        let headers1 = {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        };
+        let body1 = {
+          grant_type: "authorization_code",
+          code: "aaa",
+          redirect_uri: "https://dpes8693.github.io/line-login-example/",
+          client_id: "1657784682", //Channel ID
+          client_secret: "155645340d8a3034e8dc47f413b5c54d" //Channel secret
+        };
 
-            postApi(url1, headers1, body1)
+        const res = await postApi(url1, headers1, body1);
+        console.log(res);
+      }
 
-        }
-
-        function postApi(url, headers, body) {
-            return fetch(url, {
-                method: "POST",
-                headers: headers,
-                //別忘了把主體参數轉成字串，否則資料會變成[object Object]，它無法被成功儲存在後台
-                body: JSON.stringify(body)
-            })
-                .then(response => response.json())
-                .then(json => console.log(json));
-        }
-
+      function postApi(url, headers, body) {
+        return fetch(url, {
+          method: "POST",
+          headers: headers,
+          //別忘了把主體参數轉成字串，否則資料會變成[object Object]，它無法被成功儲存在後台
+          body: JSON.stringify(body)
+        })
+          .then((response) => response.json())
+          .then((json) => console.log(json));
+      }
     </script>
-</body>
-
+  </body>
 </html>
