@@ -3,19 +3,7 @@ const redirect_uri = "https://dpes8693.github.io/line-login-example/"
 const client_id = "1657784682"
 const client_secret = "155645340d8a3034e8dc47f413b5c54d"
 const queryObject = {};
-function init() {
-    // 解析是否是line跳轉過來的
-    const myURL = new URL('http://127.0.0.1:5500/index.html?code=rkovOchoIvJ9KIonkTlS&state=login')
-    // 透過物件的解構賦值，取出 URL 物件的屬性值
-    const { href, protocol, hostname, pathname, search, searchParams } = myURL
 
-    // 透過陣列的解構賦值，取得網址參數部分
-    for (let [key, value] of searchParams.entries()) {
-        queryObject[key] = value
-    }
-    console.log(queryObject)
-
-}
 
 // const lineLoginBtn = document.getElementById("lineLoginBtn")
 function loginToLine() {
@@ -29,6 +17,20 @@ function loginToLine() {
     link += '&scope=openid%20profile'
 
     window.location.href = link;
+}
+
+function init() {
+    // 解析是否是line跳轉過來的
+    const myURL = new URL(window.location.href)
+    // 透過物件的解構賦值，取出 URL 物件的屬性值
+    const { searchParams } = myURL
+
+    // 透過陣列的解構賦值，取得網址參數部分
+    for (let [key, value] of searchParams.entries()) {
+        queryObject[key] = value
+    }
+    console.log(queryObject)
+
 }
 
 // POST https://api.line.me/oauth2/v2.1/token
@@ -56,16 +58,16 @@ async function getLineToken() {
             body: JSON.stringify(body)
         })
             .then(response => response.json())
-/**
- * response
-    {
-    "access_token": "bNl4YEFPI/hjFWhTqexp4MuEw5YPs...",
-    "expires_in": 2592000,
-    "id_token": "eyJhbGciOiJIUzI1NiJ9...",
-    "refresh_token": "Aa1FdeggRhTnPNNpxr8p",
-    "scope": "profile",
-    "token_type": "Bearer"
-    }         
-*/
+        /**
+         * response
+            {
+            "access_token": "bNl4YEFPI/hjFWhTqexp4MuEw5YPs...",
+            "expires_in": 2592000,
+            "id_token": "eyJhbGciOiJIUzI1NiJ9...",
+            "refresh_token": "Aa1FdeggRhTnPNNpxr8p",
+            "scope": "profile",
+            "token_type": "Bearer"
+            }         
+        */
     }
 }
