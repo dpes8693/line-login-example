@@ -14,7 +14,7 @@ function loginToLine() {
     link += '&client_id=' + client_id
     link += '&redirect_uri=' + redirect_uri
     link += '&state=login'
-    link += '&scope=openid%20profile'
+    link += '&scope=openid%20profile%20email'
 
     window.location.href = link;
 }
